@@ -10,7 +10,7 @@ import axios from "axios";
  * @returns {Promise<void>} A promise that resolves when the request is complete.
  * @throws Will throw an error if the request to the server fails.
  */
-export const declineFriendRequest = async (myUsername, friendUsername) => {
+export const declineFriendRequest = async (myUsername: string, friendUsername: string): Promise<void> => {
     try {
         // Sending a PUT request to the server to decline the friend request.
         await axios.put(

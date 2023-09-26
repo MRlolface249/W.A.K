@@ -7,7 +7,7 @@ import axios from "axios";
  * @param {string} myUsername - The username of the user who wants to add a friend.
  * @param {string} friendUsername - The username of the user to be added as a friend.
  */
-export const addFriend = (myUsername, friendUsername) => {
+export const addFriend = (myUsername: string, friendUsername: string): void => {
     // Sending a PUT request to the server to add a friend for the given user.
     axios.put(
         `${

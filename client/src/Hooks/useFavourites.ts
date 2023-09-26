@@ -2,11 +2,22 @@ import { useState, useEffect } from 'react';
 import { useAuthContext } from './useAuthContext';
 import { BASE_URL } from "../../env";
 
+export interface FavouriteState {
+  favourites: number[];
+  loading: boolean;
+  error: string | null;
+}
 
-export const useFavourites = () => {
-  const [favourites, setFavourites] = useState([]); // create a state for the favourites list
-  const [loading, setLoading] = useState(false); // create a state for the loading status
-  const [error, setError] = useState(null); // create a state for the error message
+export interface FavouriteActions {
+  addFavourite: (movieId: number) => void;
+  removeFavourite: (movieId: number) => void;
+  isFavourite: (movieId: number) => Promise<boolean>;
+}
+
+export const useFavourites = (): FavouriteState & FavouriteActions => {
+  const [favourites, setFavourites] = useState<number[]>([]); // create a state for the favourites list
+  const [loading, setLoading] = useState<boolean>(false); // create a state for the loading status
+  const [error, setError] = useState<string | null>(null); // create a state for the error message
   const { user } = useAuthContext(); // get the user from the AuthContext
 
   useEffect(() => {
@@ -38,7 +49,7 @@ export const useFavourites = () => {
   }, [user]); // run this effect whenever the user changes
 
   // create a function for adding a movie to the favourites list
-  const addFavourite = async (movieId) => {
+  const addFavourite = async (movieId: number) => {
     setLoading(true);
     setError(null);
     try {
@@ -55,14 +66,14 @@ export const useFavourites = () => {
       } else {
         setError(json.error); // update the error state with the error message
       }
-    } catch (err) {
+    } catch (err: any) {
       setError(err.message); // update the error state with the error message
     }
     setLoading(false);
   };
 
   // create a function for removing a movie from the favourites list
-  const removeFavourite = async (movieId) => {
+  const removeFavourite = async (movieId: number) => {
     setLoading(true);
     setError(null);
     try {
@@ -79,14 +90,14 @@ export const useFavourites = () => {
       } else {
         setError(json.error); // update the error state with the error message
       }
-    } catch (err) {
+    } catch (err: any) {
       setError(err.message); // update the error state with the error message
     }
     setLoading(false);
   };
 
   // create a function for checking if a movie is in the favourites list
-  const isFavourite = async (movieId) => {
+  const isFavourite = async (movieId: number): Promise<boolean> => {
     try {
       const response = await fetch(
         `${BASE_URL}/favorites/isFavorite/${movieId}`,

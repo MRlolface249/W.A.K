@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, {AxiosError} from "axios";
 import { declineFriendRequest } from "./declineFriendRequest.js";
 
 /**
@@ -11,7 +11,7 @@ import { declineFriendRequest } from "./declineFriendRequest.js";
  * @returns {Promise<void>} A promise that resolves when all server requests are complete.
  * @throws Will throw an error if any of the requests to the server fail.
  */
-export const acceptFriendRequest = async (myUsername, friendUsername) => {
+export const acceptFriendRequest = async (myUsername: string, friendUsername: string): Promise<void> => {
     try {
         // Sending a PUT request to the server to accept the friend request for the current user.
         await axios.put(
@@ -29,8 +29,18 @@ export const acceptFriendRequest = async (myUsername, friendUsername) => {
 
         // Declining the friend request after it has been accepted to update the list.
         declineFriendRequest(myUsername, friendUsername);
-    } catch (error) {
+    } catch (error: any) {
         console.error("Error accepting friend request:", error);
         // Appropriate error handling can be added here.
+        if (axios.isAxiosError(error)) {
+            const axiosError: AxiosError = error;
+
+            if (axiosError.response) {
+                // The request was made and the server responded with a status code
+                console.error("Server response status:", axiosError.response.status);
+                console.error("Server response data:", axiosError.response.data);
+            }
+        }
+        throw error;
     }
 };
