@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import SearchBar from "@mkyy/mui-search-bar";
 import MediaGrid from "../../Components/MediaGrid";
@@ -6,10 +6,12 @@ import "./style.css";
 import { apiKey, BASE_URL } from "../../../env.js";
 import backgroundImage from "./img/movies.jpeg";
 
-const Search = () => {
-  const [backendData, setBackendData] = useState({ movies: [] });
-  const [textFieldValue, setTextFieldValue] = useState(""); // Start with an empty search query
-  const [filteredMovies, setFilteredMovies] = useState([]);
+const Search: React.FC = () => {
+  const [backendData, setBackendData] = useState<{ movies: any[] }>({
+    movies: [],
+  });
+  const [textFieldValue, setTextFieldValue] = useState<string>(""); // Start with an empty search query
+  const [filteredMovies, setFilteredMovies] = useState<any[]>([]);
   const [isInitialLoad, setIsInitialLoad] = useState(true); // Track the initial load
 
   useEffect(() => {

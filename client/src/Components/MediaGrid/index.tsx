@@ -6,7 +6,10 @@ interface Media {
   // Define the structure of your 'media' object here
   // For example:
   id: number;
+  vote_average: number;
+  poster_path: string;
   title: string;
+  release_date: string;
   // Add other properties as needed
 }
 
