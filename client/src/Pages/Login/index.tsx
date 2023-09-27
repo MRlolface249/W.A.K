@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useLogin } from "../../Hooks/useLogin.js";
+import { useLogin } from "../../Hooks/useLogin";
 import "./style.css";
 import backgroundImage from "./img/movies.jpeg";
 
@@ -44,7 +44,7 @@ const Index: React.FC = () => {
           <button className="login-button" disabled={isLoading ?? false}>
             Log in
           </button>
-          {error && <div className="error">{error}</div>}
+          {error && <div className="error">{error.message}</div>}
         </form>
       </div>
     </div>

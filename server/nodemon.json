@@ -1,0 +1,6 @@
+{
+    "watch": ["src"], // The directory to watch for changes (adjust as needed)
+    "ext": "ts", // The file extension to watch (for TypeScript, use "ts")
+    "exec": "ts-node src/index.ts" // The command to run when changes are detected
+  }
+  

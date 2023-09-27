@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useSignup } from "../../Hooks/useSignup.js";
+import { useSignup } from "../../Hooks/useSignup";
 import "./style.css";
 import backgroundImage from "./img/movies.jpeg";
 
